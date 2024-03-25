@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+         <meta charset="UTF-8">
+         <title>Home Page</title>
+    </head>
+    <body>
+        <h1>Расчет сопротивления контура заземления </h1>
+        <h2>Расчет выполнен по справочнику Ю.Г. Барыбина</h2>
+
+                <h2>Исходные данные</h2>
+        <form action="/groundings" method="post">
+
+
+            <tr>
+                <th> Наименование </th>
+                <th> Значение</th>
+            </tr>
+            <tr>
+                <td width="500" height="25">
+                    <p style="margin-left: 40px">Климатический коэффициент:</p>
+                </td>
+                <table>
+                <td width="335" colspan="2">
+                    <p style="margin-left: 10px"><select style="width:290px" size="1" name="climaticRegion1">
+                        <option value="1.9">Климатическая зона I (Верт. - 1.9; Горизонт. - 5.75)</option>
+                        <option value="1.7">Климатическая зона II (Верт. - 1.7; Горизонт. - 4.0)</option>
+                        <option value="1.45">Климатическая зона III (Верт. - 1.45; Горизонт. - 2.25)</option>
+                        <option value="1.3">Климатическая зона IV (Верт. - 1.3; Горизонт. - 1.75)</option>
+                    </select></p>
+                </td>
+
+            </tr >
+            <td width="500" height="25">
+                <tr> <td> Удельное сопротивление верхнего слоя грунта, Ом*м: r1= </td><td> <input type="number" step="any" name="resistanceUpGround"> </td> </tr>
+                <tr> <td> Толщина верхнего слоя грунта, м: H= </td><td> <input type="number" step="any" name="widthUpGrounding"></td> </tr>
+                <tr> <td> Удельное сопротивление нижнего слоя грунта, Ом*м: r2= </td><td> <input type="number" step="any" name="resistanceDownGround"></td> </tr>
+                <tr> <td> Количество вертикальных заземлителей, шт: Nверт= </td><td> <input type="number" step="any" name="countVerticalGrounding"></td> </tr>
+                <tr> <td> Длина вертикальных заземлителей, м: L= </td><td> <input type="number" step="any" name="lengthVerticalGrounding"></td> </tr>
+                <tr> <td> Диаметр вертикальных заземлителей, м: </td><td> <input type="number" step="any" name="diametrVerticalGrounding"></td> </tr>
+                <tr> <td> Длина горизонтального заземлителя, м: Lгор=</td><td> <input type="number" step="any" name="countHorizontalGrounding"></td> </tr>
+                <tr> <td> Глубина прокладки горизонтального заземлителя,м: tполосы= </td><td> <input type="number" step="any" name="depthHorizontalGrounding"></td> </tr>
+                <tr> <td> Ширина горизонтального заземлителя, м: b= </td><td> <input type="number" step="any" name="widthHorizontalGrounding"></td> </tr>
+                <tr> <td> Коэффициент использования (экранирования) вертикального заземлителя : Kив= </td><td> <input type="number" step="any" name="utilizationFactor1"></td> </tr>
+                <tr> <td> Коэффициент использования (экранирования) горизонтального заземлителя : Kиг= </td><td> <input type="number" step="any" name="utilizationFactor2"></td> </tr>
+            </td>
+        </table>
+            <button type="submit">Рассчитать</button>
+        </form>
+        <br />
+            <tr> Расчетные данные</tr>
+        <table>
+            <td width="500" height="25">
+            <tr>
+                <th> Наименование </th>
+                <th> Значение</th>
+            </tr>
+            </td>
+        </table>
+                <tr th:each="grounding: ${groundings}" >
+                    <table>
+                <tr> <td> Климатический коэффициент для вертикального заземлителя: Кв= </td> <td th:text="${grounding.climaticRegion1}"></td> </tr>
+                <tr> <td> Климатический коэффициент для горизонтального заземлителя: Кг= </td> <td th:text="${grounding.climaticRegion2}"></td> </tr>
+                <tr> <td> Удельное сопротивление верхнего слоя грунта, Ом*м: r1= </td> <td th:text="${grounding.resistanceUpGround}"></td> </tr>
+                <tr> <td> Толщина верхнего слоя грунта, м: H= </td> <td th:text="${grounding.widthUpGrounding}"></td> </tr>
+                <tr> <td> Удельное сопротивление нижнего слоя грунта, Ом*м: r2= </td> <td th:text="${grounding.resistanceDownGround}"></td> </tr>
+                <tr> <td> Количество вертикальных заземлителей, шт: Nверт= </td> <td th:text="${grounding.countVerticalGrounding}"></td> </tr>
+                <tr> <td> Длина вертикальных заземлителей, м: L= </td> <td th:text="${grounding.lengthVerticalGrounding}"></td> </tr>
+                <tr> <td> Диаметр вертикальных заземлителей, м: Dверт= </td> <td th:text="${grounding.diametrVerticalGrounding}"></td> </tr>
+                <tr> <td> Длина горизонтального заземлителя, м: Lгор= </td><td th:text="${grounding.countHorizontalGrounding}"></td> </tr>
+                <tr> <td> Глубина прокладки горизонтального заземлителя,м: tполосы= </td> <td th:text="${grounding.depthHorizontalGrounding}"></td> </tr>
+                <tr> <td> Ширина горизонтального заземлителя, м: b= </td> <td th:text="${grounding.widthHorizontalGrounding}"></td> </tr><br />
+                <tr> <td> Коэффициент использования (экранирования) вертикального заземлителя : Kив= </td> <td th:text="${grounding.utilizationFactor1}"></td> </tr>
+                <tr> <td> Коэффициент использования (экранирования) горизонтального заземлителя : Kиг= </td><td th:text="${grounding.utilizationFactor2}"></td> </tr>
+                <br />
+                <tr> <td> Удельное сопротивление грунта, Ом*м: Rуд=</td> <td th:text="${grounding.totalElectricalResistanceGround}" ></td> </tr>
+                <tr> <td> Сопротивление одного вертикального электрода, Ом: Rв1=</td> <td th:text="${grounding.resistanceSingleVerticalGrounding}"></td> </tr>
+                <tr> <td> Суммарное сопротивление вертикального заземлителя, Ом: Rв=</td> <td th:text="${grounding.resistanceTotalVerticalGrounding}"></td> </tr>
+                <tr> <td> Сопротивление горизонтального заземлителя, Ом: Rг1=</td> <td th:text="${grounding.resistanceHorizontalGrounding}"></td> </tr>
+                <tr> <td>Суммарное сопротивление горизонтального заземлителя, Ом: Rг= </td><td th:text="${grounding.resistanceTotalHorizontalGrounding}"></td> </tr>
+                <tr> <td> Сопротивление контура заземления, Ом: Rобщ=</td> <td th:text="${grounding.totalResistanceGrounding}"></td> </tr>
+
+                </tr>
+            </td>
+            </table>
+
+
+
+
+
+</body>
+</html>
