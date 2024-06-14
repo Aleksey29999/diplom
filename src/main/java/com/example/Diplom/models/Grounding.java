@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-@Getter
-@Setter
+
 public class Grounding {
     private double climaticRegion1; //Климатический коэффициент для вертикального заземлителя
     private double climaticRegion2; //Климатический коэффициент для горизонтального заземлителя
